@@ -1,5 +1,16 @@
+<script setup lang="ts">
+//
+</script>
+
 <template>
-  <div>
-    <NuxtWelcome />
-  </div>
+  <main class="container-fluid my-3">
+    <NuxtPage />
+  </main>
 </template>
+
+<style>
+/* html,
+body {
+  background: transparent;
+} */
+</style>
