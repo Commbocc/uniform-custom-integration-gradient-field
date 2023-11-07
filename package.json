@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@uniformdev/mesh-sdk": "^19.69.0",
+    "@vueuse/core": "^10.5.0",
     "bootstrap": "^5.3.2",
     "sass": "^1.69.5"
   }
