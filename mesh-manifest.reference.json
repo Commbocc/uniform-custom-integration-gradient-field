@@ -1,0 +1,22 @@
+{
+  "type": "uniform-custom-integration-gradient-field",
+  "displayName": "uniform-custom-integration-gradient-field",
+  "category": "content",
+  "baseLocationUrl": "https://commbocc.github.io/uniform-custom-integration-gradient-field",
+  "locations": {
+    "settings": {
+      "url": "/settings"
+    },
+    "canvas": {
+      "parameterTypes": [
+        {
+          "type": "playground",
+          "displayName": "Integration Playground",
+          "configureUrl": "/paramTypeConfig",
+          "editorUrl": "/paramType",
+          "renderableInPropertyPanel": true
+        }
+      ]
+    }
+  }
+}
