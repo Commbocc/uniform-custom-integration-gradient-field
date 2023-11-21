@@ -7,14 +7,15 @@ const state = ref<GradientModel>(
   location?.value ?? {
     angle: 0,
     colors: [],
-    compiledValue: '',
+    cssValue: '',
+    gradientValue: '',
   }
 )
 
 watch(
-  () => state.value.compiledValue,
+  () => state.value.cssValue,
   () => {
-    console.log('saving')
+    // console.log('saving')
     location?.setValue(toRaw(state.value))
   }
 )

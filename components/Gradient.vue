@@ -19,22 +19,12 @@ const rgbs = computed(() => {
   return state.colors?.map((m) => `rgba(${m.color}, ${m.opacity}%)`).join(', ')
 })
 
-const compiledValue = computed(() => {
-  if (!state.colors?.length) return ''
-
-  const value =
-    state.colors.length > 1
-      ? `linear-gradient(${state.angle}deg, ${rgbs.value})`
-      : rgbs.value
-
-  const { css } = compileString(`.bg { background: ${value}; }`)
-  return css.match(/background\: (.*)\;/)?.[1] ?? 'undefined'
-})
-
 watchDebounced(
   () => [state.name, state.angle, state.colors],
   () => {
-    state.compiledValue = compiledValue.value
+    const { cssValue, gradientValue } = compile()
+    state.cssValue = cssValue
+    state.gradientValue = gradientValue
     emit('update:modelValue', toRaw(state))
   },
   {
@@ -44,6 +34,23 @@ watchDebounced(
   }
 )
 
+function compile() {
+  if (!state.colors?.length) return { cssValue: '', gradientValue: '' }
+
+  const value =
+    state.colors.length > 1
+      ? `linear-gradient(${state.angle}deg, ${rgbs.value})`
+      : `linear-gradient(${state.angle}deg, ${rgbs.value}, ${rgbs.value})`
+
+  const { css } = compileString(`.bg { background: ${value}; }`)
+
+  const cssValue = css.match(/background\: (.*)\;/)?.[1] ?? 'undefined'
+  const gradientValue =
+    css.match(/linear\-gradient\((.*)\)/)?.[1] ?? 'undefined'
+
+  return { cssValue, gradientValue }
+}
+
 const removeColor = (i: number) => {
   state.colors?.splice(i, 1)
 }
@@ -51,7 +58,7 @@ const removeColor = (i: number) => {
 
 <template>
   <div id="preview" class="border">
-    <div class="ratio ratio-16x9" :style="{ background: compiledValue }"></div>
+    <div class="ratio ratio-16x9" :style="{ background: state.cssValue }"></div>
   </div>
 
   <details>

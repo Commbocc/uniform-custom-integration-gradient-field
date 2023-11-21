@@ -7,5 +7,6 @@ interface GradientModel {
   name?: string
   angle?: number
   colors?: ColorModel[]
-  compiledValue?: string
+  cssValue?: string
+  gradientValue?: string
 }
